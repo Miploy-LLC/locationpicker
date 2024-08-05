@@ -24,6 +24,9 @@ class PlacePicker extends StatefulWidget {
   /// [here](https://cloud.google.com/maps-platform/)
   final String apiKey;
 
+  /// Used to control whether to display, or not, the back button
+  bool? appBarAutomaticallyImplyLeading;
+
   /// Location to be displayed when screen is showed. If this is set or not null, the
   /// map does not pan to the user's current location.
   final LatLng? displayLocation;
@@ -31,7 +34,7 @@ class PlacePicker extends StatefulWidget {
   LatLng defaultLocation = LatLng(10.5381264, 73.8827201);
 
   PlacePicker(this.apiKey,
-      {this.displayLocation, this.localizationItem, LatLng? defaultLocation}) {
+      {this.displayLocation, this.localizationItem, LatLng? defaultLocation, bool? this.appBarAutomaticallyImplyLeading}) {
     if (this.localizationItem == null) {
       this.localizationItem = new LocalizationItem();
     }
@@ -146,7 +149,7 @@ class PlacePickerState extends State<PlacePicker> {
           key: this.appBarKey,
           title: SearchInput(searchPlace),
           centerTitle: true,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: widget.appBarAutomaticallyImplyLeading ?? false,
         ),
         body: Column(
           children: <Widget>[
